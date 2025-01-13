@@ -1,4 +1,4 @@
-# 知识库
+# Knowledge Base
 from GeneralAgent import Agent
 from dotenv import load_dotenv
 
@@ -6,22 +6,22 @@ load_dotenv()
 
 files = ['../docs/paper/General_Agent__Self_Call_And_Stack_Memory.pdf']
 workspace = '9_knowledge_files'
-agent = Agent('你是AI助手，用中文回复。', workspace=workspace, knowledge_files=files)
-agent.user_input(['Self call 是什么意思？'])
+agent = Agent('You are an AI assistant.', workspace=workspace, knowledge_files=files)
+agent.user_input(['What does Self call mean?'])
 
-# 清理掉
+# Clean up
 import shutil
 shutil.rmtree(workspace)
 
 
-# 知识库默认使用 GeneralAgent.skills 中 embedding_texts 函数来对文本进行 embedding (默认是OpenAI的text-embedding-3-small模型)
-# 你可以重写 embedding_texts 函数，使用其他厂商 或者 本地的 embedding 方法，具体如下:
+# Knowledge base by default uses the embedding_texts function in GeneralAgent.skills to embed text (default is OpenAI's text-embedding-3-small model)
+# You can override the embedding_texts function to use other providers or local embedding methods, as follows:
 
 # def new_embedding_texts(texts) -> [[float]]:
 #     """
-#     对文本数组进行embedding
+#     Perform embedding on an array of texts
 #     """
-#     # 你的embedding方法
+#     # Your embedding method
 #     return result
 # from GeneralAgent import skills
 # skills.embedding_texts = new_embedding_texts

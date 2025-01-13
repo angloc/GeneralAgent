@@ -1,4 +1,4 @@
-# 测试阿里千问
+# Test Alibaba Qwen
 api_key = 'sk-xxxx'
 base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
 model  = 'qwen-vl-max'

@@ -1,4 +1,4 @@
-# 测试Azure Open AI
+# Test Azure Open AI
 import os
 from GeneralAgent import Agent
 from dotenv import load_dotenv

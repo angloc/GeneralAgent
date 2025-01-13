@@ -1,4 +1,4 @@
-# 函数调用
+# Function Call
 import logging
 
 logging.basicConfig(
@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-# 函数: 获取天气信息
+# Function: Get weather information
 def get_weather(city: str) -> str:
     """
     get weather information
@@ -25,15 +25,15 @@ def get_weather(city: str) -> str:
     return weather
 
 
-# agent = Agent('你是一个天气小助手', functions=[get_weather], model='deepseek-chat')
-agent = Agent("你是一个天气小助手", functions=[get_weather])
-agent.user_input("成都天气怎么样？")
+# agent = Agent('You are a weather assistant', functions=[get_weather], model='deepseek-chat')
+agent = Agent("You are a weather assistant", functions=[get_weather])
+agent.user_input("How's the weather in Chengdu?")
 
-# 输出
+# Output
 # ```python
-# city = "成都"
+# city = "Chengdu"
 # weather_info = get_weather(city)
 # weather_info
 # ```
-# 成都的天气是晴天。
-# 请问还有什么我可以帮忙的吗？
+# The weather in Chengdu is sunny.
+# Is there anything else I can help you with?

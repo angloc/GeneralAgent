@@ -1,7 +1,7 @@
 # def main(messages, input, files, output_callback, event=None, workspace='./'):
 
 # question = input('')
-question = '周鸿祎卖车'
+question = 'Zhou Hongyi selling cars'
 from GeneralAgent import Agent
 from GeneralAgent import skills
 from dotenv import load_dotenv

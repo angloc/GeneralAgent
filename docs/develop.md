@@ -1,28 +1,28 @@
-# 发布
+# Publish
 
 ```bash
-# 发布pip库
+# Publish pip package
 poetry build -f sdist
 poetry publish
 ```
 
-# 测试
+# Test
 
 ```shell
-# 新建python环境
+# Create new python environment
 python -m venv ga
 source ga/bin/activate
 
-# 临时取消python别名 (如果有)
+# Temporarily disable python alias (if any)
 unalias python
 
-# 安装依赖
+# Install dependencies
 pip install .
 
-# 导出环境变量
+# Export environment variables
 export $(grep -v '^#' .env | sed 's/^export //g' | xargs)
 
-# 测试
+# Run tests
 cd test
 pytest -s -v
 ```

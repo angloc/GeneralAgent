@@ -1,4 +1,4 @@
-# 演示临时上下文的用法
+# Demonstrate usage of temporary context
 from GeneralAgent import Agent
 from dotenv import load_dotenv
 

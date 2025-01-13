@@ -1,10 +1,10 @@
-# 序列化
+# Serialization
 from GeneralAgent import Agent
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# agent序列化位置，运行过程中会自动保存LLM的messages和python解析器的状态
+# Agent serialization location, automatically saves LLM messages and python interpreter state during runtime
 workspace='./5_serialize'
 
 role = 'You are a helpful agent.'
@@ -17,7 +17,7 @@ agent.user_input('What is my name?')
 
 # Output: Your name is Shadow. How can I help you today, Shadow?
 
-# agent: 清除记忆 + python序列化状态
+# agent: Clear memory + python serialization state
 agent.clear()
 
 agent.user_input('What is my name?')

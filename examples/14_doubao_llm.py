@@ -1,7 +1,7 @@
-# 使用豆包大模型
-# 使用豆包模型，需要先安装库: pip install 'volcengine-python-sdk[ark]'
-# model设置为doubao，区分大模型链接库volcengine
-# 豆包由于接口上模型是Endpoint。所以使用base_url来指定Endpoint(即哪种模型)
+# Using Doubao Large Language Model
+# To use Doubao model, first install the library: pip install 'volcengine-python-sdk[ark]'
+# Set model to doubao to distinguish from volcengine LLM connection library
+# Since Doubao's interface model is Endpoint, use base_url to specify the Endpoint (which model)
 
 from GeneralAgent import Agent
 from dotenv import load_dotenv
@@ -11,4 +11,4 @@ load_dotenv()
 api_key = 'your_api_key'
 endpoint = 'your_endpoint_id'
 agent = Agent('You are a helpful assistant', model='doubao', api_key=api_key, base_url=endpoint)
-agent.user_input('介绍一下成都')
+agent.user_input('Tell me about Chengdu')

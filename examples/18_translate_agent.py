@@ -1,4 +1,4 @@
-# 翻译Agent
+# Translation Agent
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -47,17 +47,17 @@ def translate_text(text, language, worker=1, reflection_mode=False):
     def _translate(index, content, language):
         role = f"You are an expert linguist, specializing in translation text to {language}."
         rules = [
-            "翻译结果不要包含在```里面",
-            "表格、代码、数学公式、图片地址、参考文献等不需要翻译，保持原样",
-            "只返回翻译和保留的全文，不要任何解释和描述。",
-            "确保翻译的准确性、流畅性和风格一致性",
-            "使用目标语言的语法、拼写和标点规则",
-            "确保术语使用一致并反映源文本领域",
-            "如果有文化背景，请考虑文化背景"
+            "Do not wrap translation results in ```",
+            "Tables, code, mathematical formulas, image URLs, references should not be translated, keep them as is",
+            "Only return the translation and preserved text, no explanations or descriptions",
+            "Ensure translation accuracy, fluency, and style consistency",
+            "Use target language grammar, spelling, and punctuation rules",
+            "Ensure consistent terminology that reflects the source text domain",
+            "Consider cultural context if present"
         ]
         role += '# rules: ' + '\n\n'.join([f'{i+1}. {rule}' for i, rule in enumerate(rules)])
         agent = Agent(role)
-        result = agent.run(f'请将以下内容翻译成{language}:\n\n{content}')
+        result = agent.run(f'Please translate the following content to {language}:\n\n{content}')
         if reflection_mode:
             reflection_prompt = f"""Give constructive criticism and helpful suggestions to improve the translation. 
             When writing suggestions, pay attention to whether there are ways to improve the translation's 
@@ -69,7 +69,7 @@ def translate_text(text, language, worker=1, reflection_mode=False):
             Each suggestion should address one specific part of the translation.
             Output only the suggestions and nothing else."""
             agent.run(reflection_prompt)
-            result = agent.run(f'根据反思的结果，对上面的翻译结果进行修改，并只输出修改后的翻译结果。')
+            result = agent.run(f'Based on the reflection results, modify the translation above and output only the modified translation.')
         return index, result
 
     with ThreadPoolExecutor(worker) as executor:

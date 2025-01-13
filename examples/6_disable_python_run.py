@@ -1,15 +1,15 @@
 # Disable Python Run
-# 默认情况下，GeneralAgent会运行用户输入的Python代码。如果你不希望GeneralAgent运行Python代码，可以通过将 `disable_python_run` 属性设置为 `True` 来禁用Python运行。
+# By default, GeneralAgent executes Python code input by users. If you don't want GeneralAgent to run Python code, you can disable Python execution by setting the `disable_python_run` property to `True`.
 from GeneralAgent import Agent
 from dotenv import load_dotenv
 
 load_dotenv()
 
-agent = Agent('你是一个python专家，辅助用户解决python问题。')
+agent = Agent('You are a Python expert helping users solve Python problems.')
 agent.disable_python_run = True
-agent.user_input('用python实现一个读取文件的函数')
+agent.user_input('Implement a function in Python to read a file')
 
-# 当然，这里是一个用Python实现的读取文件内容的函数：
+# Here's a Python function to read file contents:
 
 # ```python
 # def read_file(file_path):
@@ -22,9 +22,9 @@ agent.user_input('用python实现一个读取文件的函数')
 #     except Exception as e:
 #         return f"An error occurred: {e}"
 
-# # 示例用法
+# # Example usage
 # file_content = read_file('example.txt')
 # file_content
 # ```
 
-# 这个函数 `read_file` 接受一个文件路径作为参数，尝试以UTF-8编码读取文件内容，并返回读取到的内容。如果文件未找到或发生其他错误，则返回相应的错误信息。
+# This `read_file` function takes a file path as a parameter, attempts to read the file contents with UTF-8 encoding, and returns the content. If the file is not found or other errors occur, it returns the corresponding error message.

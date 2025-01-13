@@ -1,38 +1,38 @@
-# agent.run命令的时候，核对生成内容是否合适
+# Verify generated content when using agent.run command
 from GeneralAgent import Agent
 from GeneralAgent import skills
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# 步骤0: 定义Agent
-agent = Agent('你是一个小说家')
+# Step 0: Define Agent
+agent = Agent('You are a novelist')
 
-# 步骤1: 从用户处获取小说的名称和主题
-# topic = skills.input('请输入小说的名称和主题: ')
-topic = '小白兔吃糖不刷牙的故事'
+# Step 1: Get novel name and theme from user
+# topic = skills.input('Please enter the novel name and theme: ')
+topic = 'The story of a bunny who eats candy without brushing teeth'
 
-# 步骤2: 小说的概要
-summary = agent.run(f'小说的名称和主题是: {topic}，扩展和完善一下小说概要。要求具备文艺性、教育性、娱乐性。')
+# Step 2: Novel summary
+summary = agent.run(f'The novel name and theme is: {topic}, please expand and refine the novel summary. It should be artistic, educational, and entertaining.')
 
-# 步骤3: 小说的章节名称和概要列表
-chapters = agent.run('输出小说的章节名称和每个章节的概要，返回列表 [(chapter_title, chapter_summary), ....]', return_type=list, user_check=True)
+# Step 3: Generate chapter names and summaries list
+chapters = agent.run('Output the novel chapter names and summaries for each chapter, return as list [(chapter_title, chapter_summary), ....]', return_type=list, user_check=True)
 
-# 步骤4: 生成小说每一章节的详细内容
+# Step 4: Generate detailed content for each chapter
 agent.disable_python()
 contents = []
 for index, (chapter_title, chapter_summary) in enumerate(chapters):
-    content = agent.run(f'对于章节: {chapter_title}\n概要: {chapter_summary}. \n写小说这个章节的详细内容，注意只返回内容，不要标题。')
+    content = agent.run(f'For chapter: {chapter_title}\nSummary: {chapter_summary}. \nWrite detailed content for this chapter, return content only without title.')
     content = '\n'.join([x.strip() for x in content.split('\n')])
     contents.append(content)
 
-# 步骤5: 将小说格式化写入文件
+# Step 5: Format and write novel to file
 with open('novel.md', 'w') as f:
     for index in range(len(chapters)):
         f.write(f'### {chapters[index][0]}\n')
         f.write(f'{contents[index]}\n\n')
 
-# 步骤6(可选): 将markdown文件转换为pdf文件
+# Step 6 (Optional): Convert markdown file to pdf
 
-# 步骤7: 输出小说文件给用户
-skills.output('你的小说已经生成[novel.md](novel.md)\n')
+# Step 7: Output novel file to user
+skills.output('Your novel has been generated: [novel.md](novel.md)\n')
