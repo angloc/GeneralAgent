@@ -20,10 +20,10 @@ class RoleInterpreter(Interpreter):
     def __init__(self, system_role=None, self_call=False, search_functions=False, role:str=None) -> None:
         """
         prompt = system_role | default_system_role + role
-        @system_role: str, 系统角色. 如果为None，则使用默认系统角色
-        @self_call: bool, 是否开启自调用
-        @search_functions: bool, 是否开启搜索功能
-        @role: str, 用户角色
+        @system_role: str, System role. If None, use default system role
+        @self_call: bool, Whether to enable self-calling
+        @search_functions: bool, Whether to enable search functions
+        @role: str, User role
         """
         self.system_role = system_role
         self.self_control = self_call

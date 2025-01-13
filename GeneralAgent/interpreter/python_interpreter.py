@@ -90,8 +90,8 @@ print('Hello, world!')
         stop_wrong_count=3,
     ):
         """
-        @serialize_path (str): python解释器的序列化路径，如果为None，则不序列化。举例: './python_interpreter.bin' or 'serialized.pkl'
-        @lib (str, optional): 可以使用的库
+        @serialize_path (str): Serialization path for python interpreter, if None, no serialization. Example: './python_interpreter.bin' or 'serialized.pkl'
+        @lib (str, optional): Available libraries
         @import_code (str, optional): code to import. The tools used should be imported. Defaults to default_import_code.
         @prompt_append: append to the prompt, custom prompt can be added here
         @stop_wrong_count: stop running when the code is wrong for stop_wrong_count times
@@ -184,7 +184,7 @@ print('Hello, world!')
             result = skills._exec(code, self.globals)
             self.run_wrong_count = 0
             stop = True
-            # 出现了自我调用，则判断一下层级，如果层级为1，则停止
+            # If self-call occurs, check the level, if level is 1, stop
             if self.agent is not None:
                 stop = self.agent.run_level >= 1
                 self.agent.python_run_result = result

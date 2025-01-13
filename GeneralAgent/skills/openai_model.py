@@ -33,7 +33,7 @@ def _get_azure_client(api_key=None, base_url=None):
 
 def embedding_texts(texts, model=None) -> [[float]]:
     """
-    对文本数组进行embedding
+    Perform embedding on text array
     """
     if model is not None and 'azure_' in model:
         client = _get_azure_client()
@@ -127,7 +127,7 @@ def llm_inference(messages, model='gpt-4o', stream=False,  api_key=None, base_ur
 
 
 def _process_message(messages, model):
-    if model == "glm-4v":  # 避开 GLM-4V 开源模型，开源模型不需要处理
+    if model == "glm-4v":  # Skip GLM-4V open source model, open source models don't need processing
         for message in messages:
             # remove the base64 prefix in the image_url such as 'data:image/jpeg;base64,' which is for GLM-4V
             if 'content' in message and isinstance(message['content'], list):
@@ -214,10 +214,10 @@ def speech_to_text(audio_file_path):
 
 def text_to_speech(text, voice='onyx', save_path=None):
     """
-    文本转语音，返回音频文件路径。
-    @param text: 要转换的文本
-    @param voice: 语音名称, onyx: 男性，nova: 女性
-    @return: 音频文件路径
+    Convert text to speech, return audio file path.
+    @param text: Text to convert
+    @param voice: Voice name, onyx: male, nova: female
+    @return: Audio file path
     """
     from GeneralAgent import skills
 

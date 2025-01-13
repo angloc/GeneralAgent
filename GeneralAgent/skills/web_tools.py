@@ -21,7 +21,7 @@ def google_search(query: str) -> str:
 
 def web_search(query: str) -> str:
     """
-    网页搜索
+    Web search
     """
     return google_search(query)
 
@@ -89,7 +89,7 @@ def _web_driver_open(url: str, wait_time=10, scroll_to_bottom=False):
     from selenium.webdriver.chrome.options import Options
     import time
 
-    # 开发环境使用本地chrome浏览器，生产环境使用远程chrome浏览器
+    # Development environment uses local Chrome browser, production environment uses remote Chrome browser
     CHROME_GRID_URL = os.environ.get('CHROME_GRID_URL', None)
     if CHROME_GRID_URL is not None:
         chrome_options = Options()
@@ -129,38 +129,38 @@ def _web_driver_get_html(driver) -> str:
     """
     return clear html content (without scirpt, style and comment) of the Selenium 4 driver, the driver should be ready.
     """
-    # 通过driver获取网页地址
+    # Get webpage URL through driver
     from bs4 import BeautifulSoup, Comment
     from urllib.parse import urljoin
     url = driver.current_url
     html = driver.page_source
     soup = BeautifulSoup(html, 'html.parser')
-    # 移除script和style
+    # Remove script and style tags
     for script_or_style in soup(['script', 'style']):
         script_or_style.decompose()  # Remove the tag from the soup
-    # 移除注释
+    # Remove comments
     for comment in soup(text=lambda text: isinstance(text, Comment)):
         comment.extract()
-    # 移除不必要的标签和属性、id
+    # Remove unnecessary tags, attributes, and IDs
     for tag in soup(['head', 'meta', 'link', 'title', 'noscript', 'iframe', 'svg', 'canvas', 'audio', 'video', 'embed', 'object', 'param', 'source', 'track', 'map', 'area', 'base', 'basefont', 'bdi', 'bdo', 'br', 'col', 'colgroup', 'datalist', 'details', 'dialog', 'hr', 'img', 'input', 'keygen', 'label', 'legend', 'meter', 'optgroup', 'option', 'output', 'progress', 'select', 'textarea', 'script', 'style', 'comment']):
         tag.decompose()
-    # 所有div、span标签的属性全部清空
+    # Clear all attributes of div and span tags
     for tag in soup(['div', 'span']):
         tag.attrs = {}
-    # 补全href地址
+    # Complete href addresses
     for a in soup.find_all('a', href=True):
         a['href'] = urljoin(url, a['href'])
-    # 补全图片
+    # Complete image sources
     for img in soup.find_all('img', src=True):
         img['src'] = urljoin(url, img['src'])
-    # 返回内容
+    # Return content
     html = str(soup)
     return html
 
 
 def web_get_html(url:str, wait_time=10, scroll_to_bottom=True):
     """
-    获取网页的html内容(不包含script, style和comment)
+    Get webpage HTML content (excluding script, style, and comments)
     @param url: the url of the web page
     @param wait_time: the time to wait for the page to load completely
     @param scroll_to_bottom: whether to scroll to the bottom of the page to trigger potential Ajax requests
@@ -181,7 +181,7 @@ def web_get_html(url:str, wait_time=10, scroll_to_bottom=True):
 
 def web_get_text(url:str, wait_time=10, scroll_to_bottom=True):
     """
-    获取网页的文本内容
+    Get webpage text content
     @param url: the url of the web page
     @param wait_time: the time to wait for the page to load completely
     @param scroll_to_bottom: whether to scroll to the bottom of the page to trigger potential Ajax requests
@@ -203,4 +203,4 @@ def web_get_text(url:str, wait_time=10, scroll_to_bottom=True):
 
 
 if __name__ == '__main__':
-    result = google_search('成都 人口')
+    result = google_search('London population')

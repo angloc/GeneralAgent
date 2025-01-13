@@ -7,12 +7,12 @@ from llama_index.core.embeddings import BaseEmbedding
 from llama_index.core import (VectorStoreIndex, SimpleDirectoryReader, StorageContext, load_index_from_storage)
 
 
-# 使用: https://github.com/run-llama/llama_index 库构建知识库索引
-# 默认使用 GeneralAgent.skills 中 embedding_texts 函数来embedding，你可以重写 embedding_texts 函数
+# Use: https://github.com/run-llama/llama_index library to build knowledge base index
+# By default, use the embedding_texts function in GeneralAgent.skills for embedding, you can override the embedding_texts function
 
 # def new_embedding_texts(texts) -> [[float]]:
 #     """
-#     对文本数组进行embedding
+#     Perform embedding on text array
 #     """
 #     import os
 #     client = _get_openai_client()
@@ -58,17 +58,17 @@ Settings.embed_model = embed_model
 
 def create_llamaindex(data_dir, storage_dir, limit_count=1000000):
     """
-    创建llamaindex索引
-    @param data_dir: 数据目录
-    @param storage_dir: 存储目录
-    @param limit_count: 限制的token数量
+    Create llamaindex index
+    @param data_dir: Data directory
+    @param storage_dir: Storage directory
+    @param limit_count: Token count limit
     """
     documents = SimpleDirectoryReader(data_dir).load_data()
-    # 限制token数量
+    # Limit token count
     total_count = 0
     for doc in documents:
         total_count += len(doc.get_content())
-    # 英文下，一个单词多个字母，所以乘以4
+    # In English, one word has multiple letters, so multiply by 4
     if total_count > limit_count * 4:
         return None
     index = VectorStoreIndex.from_documents(documents)
@@ -78,7 +78,7 @@ def create_llamaindex(data_dir, storage_dir, limit_count=1000000):
 
 def load_llamaindex(storage_dir):
     """
-    从存储中加载索引
+    Load index from storage
     """
     storage_context = StorageContext.from_defaults(persist_dir=storage_dir)
     index = load_index_from_storage(storage_context)
@@ -107,9 +107,9 @@ def query_llamaindex(index, messages):
 
 def retrieve_knowlege(storage_dir, messages) -> list:
     """
-    从知识库中检索，返回检索结果
-    @param query_str: 检索字符串
-    @return: 检测结果，list of string
+    Retrieve from knowledge base, return search results
+    @param query_str: Query string
+    @return: Search results, list of string
     """
     if len(messages) == 0:
         logging.info('messages is empty')

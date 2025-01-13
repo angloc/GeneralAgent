@@ -1,4 +1,4 @@
-# 知识库解析器
+# Knowledge Base Interpreter
 from .interpreter import Interpreter
 from GeneralAgent.llamaindex import create_llamaindex, load_llamaindex, query_llamaindex
 
@@ -8,13 +8,13 @@ import shutil
 
 class KnowledgeInterpreter(Interpreter):
     """
-    知识库解析器，用户解析知识库的问题
+    Knowledge Base Interpreter, for parsing knowledge base queries
     """
     def __init__(self, workspace, knowledge_files=[], rag_function=None) -> None:
         """
-        @param workspace: 工作目录
-        @param knowledge_files: 知识库文件列表，可以是本地文件或者网络文件，比如['http://xxx.txt', './xxx.pdf']，支持格式为llama库支持的格式
-        @param rag_function: 查询函数，输入问题，返回答案列表
+        @param workspace: Working directory
+        @param knowledge_files: List of knowledge base files, can be local or network files, e.g. ['http://xxx.txt', './xxx.pdf'], supports formats supported by llama library
+        @param rag_function: Query function, takes a question as input, returns list of answers
         """
         self.workspace = workspace
         self.knowledge_files = knowledge_files
@@ -28,7 +28,7 @@ class KnowledgeInterpreter(Interpreter):
 
     def _create_index(self):
         """
-        构建索引
+        Build index
         """
         llama_dir = os.path.join(self.workspace, 'llama')
         meta_path = os.path.join(llama_dir, 'meta.json')
@@ -42,24 +42,24 @@ class KnowledgeInterpreter(Interpreter):
         if not os.path.exists(storage_dir):
             os.makedirs(storage_dir)
 
-        # 判断是否需要重新构建索引
+        # Check if index needs to be rebuilt
         files_change = False
         if os.path.exists(meta_path):
             with open(meta_path, 'r') as f:
                 meta = json.load(f)
-            # 使用set比较两个列表是否相等
+            # Use set to compare if two lists are equal
             if set(meta['knowledge_files']) != set(self.knowledge_files):
                 files_change = True
         else:
             files_change = True
 
-        # 如果文件有变化，重新构建索引
+        # If files have changed, rebuild index
         if files_change:
-            # 删除data目录下的所有文件 & 使用 shutil 库 拷贝knowledge_files到data目录下
+            # Delete all files in data directory & use shutil library to copy knowledge_files to data directory
             for file in os.listdir(data_dir):
                 os.remove(os.path.join(data_dir, file))
             for file in self.knowledge_files:
-                # 如果文件是网络文件，下载到data目录下
+                # If file is a network file, download to data directory
                 if file.startswith('http'):
                     import requests
                     res = requests.get(file)

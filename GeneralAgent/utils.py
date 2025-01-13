@@ -17,7 +17,7 @@ def set_logging_level():
         level = logging.ERROR
     else:
         level = logging.ERROR
-    # logging设置显示文件(绝对路径)
+    # logging settings to display file (absolute path)
     logging.basicConfig(
         level=level,
         format='%(asctime)s %(pathname)s [line:%(lineno)d] %(levelname)s %(funcName)s %(message)s',
@@ -55,7 +55,7 @@ def messages_token_count(messages):
                     if item["type"] == "text":
                         num_tokens += len(encoding.encode(item["text"]))
                     if item["type"] == "image_url":
-                        num_tokens += (85 + 170 * 2 * 2)    # 用最简单的模式来计算
+                        num_tokens += (85 + 170 * 2 * 2)    # Using the simplest mode to calculate
     num_tokens += 3  # every reply is primed with <|start|>assistant<|message|>
     return num_tokens
 

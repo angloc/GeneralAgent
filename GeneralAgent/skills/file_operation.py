@@ -1,7 +1,7 @@
     
 def read_pdf_pages(file_path):
     """Read the pdf file and return a list of strings on each page of the pdf"""
-    """读取pdf文件，返回pdf每页字符串的列表"""
+    """Read PDF file and return a list of strings for each page"""
     import fitz
     doc = fitz.open(file_path)
     documents = []
@@ -11,12 +11,12 @@ def read_pdf_pages(file_path):
     
 def read_word_pages(file_path):
     """Read the word file and return a list of word paragraph strings"""
-    """读取word文件，返回word段落字符串的列表"""
+    """Read Word file and return a list of paragraph strings"""
     # https://zhuanlan.zhihu.com/p/146363527
     from docx import Document
-    # 打开文档
+    # Open document
     document = Document(file_path)
-    # 读取标题、段落、列表内容
+    # Read titles, paragraphs, and list content
     ps = [ paragraph.text for paragraph in document.paragraphs]
     return ps
 
@@ -33,7 +33,7 @@ def read_ppt(file_path):
 
 def read_file_content(file_path):
     """return content of txt, md, pdf, docx file"""
-    # 支持file_path的类型包括txt、md、pdf、docx
+    # Supported file_path types include txt, md, pdf, docx
     if file_path.endswith('.pdf'):
         return ' '.join(read_pdf_pages(file_path))
     elif file_path.endswith('.docx'):
@@ -41,7 +41,7 @@ def read_file_content(file_path):
     elif file_path.endswith('.ppt') or file_path.endswith('.pptx'):
         return read_ppt(file_path)
     else:
-        # 默认当做文本文件
+        # Treat as text file by default
         with open(file_path, 'r', encoding='utf-8') as f:
             return '\n'.join(f.readlines())
 

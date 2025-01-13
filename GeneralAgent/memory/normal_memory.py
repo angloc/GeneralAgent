@@ -7,7 +7,7 @@ from GeneralAgent.utils import encode_image
 class NormalMemory:
     def __init__(self, serialize_path='./memory.json', messages=[]):
         """
-        @serialize_path: str, 序列化路径，默认为'./memory.json'。如果为None，则使用内存存储
+        @serialize_path: str, Serialization path, defaults to './memory.json'. If None, use memory storage
         """
         self.messages = []
         self.serialize_path = serialize_path
@@ -17,7 +17,7 @@ class NormalMemory:
                     self.messages = json.load(f)
         if len(messages) > 0:
             self._validate_messages(messages)
-            # 将 messages 的内容拼到 self.messages 后面
+            # Append messages content to self.messages
             self.messages += messages
 
     def save(self):
@@ -83,7 +83,7 @@ class NormalMemory:
             # self.show_messages()
             return len(self.messages) - 1
 
-    # 恢复 message 数据， [: index]
+    # Restore message data, [: index]
     def recover(self, index):
         """
         recover the messages to the index
